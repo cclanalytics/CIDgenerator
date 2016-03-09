@@ -1,0 +1,606 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <title>Campaign Tracking Generator</title>
+</head>
+<script language="JavaScript" >
+
+function onSubmit(){
+var url=document.CIDform.url.value;
+var urlArray= url.split('\n');
+var i;
+for (i=0;i < urlArray.length;i++){
+	concatenate(urlArray[i]);
+	}
+}
+
+function concatenate(url){
+var channel,domain,campaign,date,creative,placement,target,paid,bgid;
+channel = document.CIDform.channel.value;
+domain = document.CIDform.domain.value;
+campaign= document.CIDform.campaign.value;
+date = document.CIDform.date.value;
+creative = document.CIDform.creative.value;
+placement = document.CIDform.placement.value;
+target = document.CIDform.target.value;
+paid = document.CIDform.paid.value;
+bgid = document.CIDform.bgid.value;
+
+var txtvalidate = /[a-zA-Z0-9//\n]+$/;
+
+//URL
+
+	//URL Required
+ 	if(url == ""){
+     msg = "* Required";
+     document.getElementById("urlreq").innerHTML="* Required";
+     document.getElementById("urlreq").style.color="red";
+     }
+
+    else{
+	msg = "";
+     document.getElementById("urlreq").innerHTML="";
+     document.getElementById("urlreq").style.color="red";
+	}
+
+	//URL condition
+	if(url.indexOf("?") > -1){
+	   url=url+"&cid=";
+	}
+	else{
+		url=url+"?cid=";
+	}
+
+//Channel
+
+	//Channel Required
+ 	if(channel == "select"){
+     msg = "* Required";
+     document.getElementById("channelreq").innerHTML="* Required";
+     document.getElementById("channelreq").style.color="red";
+     }
+    else{
+	msg = "";
+     document.getElementById("channelreq").innerHTML="";
+     document.getElementById("channelreq").style.color="red";
+	}
+
+     //Channel condition
+	if(channel.indexOf("select") > -1){
+	   channel="invalid";
+	}
+	else{
+		channel=channel;
+	}
+
+//Domain
+
+	//Domain Required
+ 	if(domain == "select"){
+     msg = "* Required";
+     document.getElementById("domainreq").innerHTML="* Required";
+     document.getElementById("domainreq").style.color="red";
+     }
+    else{
+	msg = "";
+     document.getElementById("domainreq").innerHTML="";
+     document.getElementById("domainreq").style.color="red";
+	}
+
+	//Domain condition
+	if(domain.indexOf("select") > -1){
+	   domain="_invalid";
+	}
+	else{
+		domain="_"+domain;
+	}
+
+
+//Campaign
+
+	//Campaign Required
+ 	if(campaign == ""){
+     msg = "* Required";
+     document.getElementById("campaignreq").innerHTML="* Required";
+     document.getElementById("campaignreq").style.color="red";
+     document.getElementById("campaignreq").style.size="xx-small";
+     }
+    else{
+	msg = "";
+     document.getElementById("campaignreq").innerHTML="";
+     document.getElementById("campaignreq").style.color="red";
+	}
+
+	//Campaign: Max 7 characters
+	var campaignlng = campaign.length;
+ 	if(campaignlng >7){
+     msg = "* Max. 7 Characters";
+     document.getElementById("campaigncnt").innerHTML="* Max. 7 Characters";
+     document.getElementById("campaigncnt").style.color="red";
+     }
+    else{
+	msg = "";
+     document.getElementById("campaigncnt").innerHTML="";
+     document.getElementById("campaigncnt").style.color="red";
+	}
+
+	//Special Characters
+	if ((txtvalidate.test(campaign)== false))
+	{
+	msg = "* Alphanumeric only";
+     document.getElementById("campaigntxt").innerHTML="* Alphanumeric only";
+     document.getElementById("campaigntxt").style.color="red";
+	}
+	else{
+	msg = "";
+     document.getElementById("campaigntxt").innerHTML="";
+     document.getElementById("campaigntxt").style.color="red";
+	}
+
+	//Campaign condition
+	if(campaign<=0){
+	   campaign="_invalid";
+	}
+	else{
+		campaign="_"+campaign;
+	}
+
+//Date
+
+	//Date Required
+ 	if(date == ""){
+     msg = "* Required";
+     document.getElementById("datereq").innerHTML="* Required";
+     document.getElementById("datereq").style.color="red";
+     }
+    else{
+	msg = "";
+     document.getElementById("datereq").innerHTML="";
+     document.getElementById("datereq").style.color="red";
+     }
+
+	//Date condition
+ 	dateArray= date.toString().split('-')
+    dateFormat= dateArray[1] + dateArray[2];
+	if(dateFormat<=0){
+	   dateFormat="_invalid";
+	}
+	else{
+		dateFormat="_"+dateFormat;
+	}
+
+//Creative
+
+	//Creative: Max 7 characters
+	var creativelng = creative.length;
+ 	if(creativelng >7){
+     msg = "* Max. 7 Characters";
+     document.getElementById("creativereq").innerHTML="* Max. 7 Characters";
+     document.getElementById("creativereq").style.color="red";
+     }
+
+    else{
+	msg = "";
+     document.getElementById("creativereq").innerHTML="";
+     document.getElementById("creativereq").style.color="red";
+	}
+
+	//Special Characters
+	if ((creativelng>0) && (txtvalidate.test(creative)== false))
+	{
+	msg = "* Alphanumeric only";
+     document.getElementById("creativetxt").innerHTML="* Alphanumeric only";
+     document.getElementById("creativetxt").style.color="red";
+	}
+	else{
+	msg = "";
+     document.getElementById("creativetxt").innerHTML="";
+     document.getElementById("creativetxt").style.color="red";
+	}
+
+	//Creative condition
+	if(creative<=0){
+	   creative="";
+	}
+	else{
+		creative="_"+creative;
+	}
+
+
+//Placement
+
+	//Placement: Max 7 characters
+	var placementlng = placement.length;
+ 	if(placementlng >7){
+     msg = "* Max. 7 Characters";
+     document.getElementById("placementreq").innerHTML="* Max. 7 Characters";
+     document.getElementById("placementreq").style.color="red";
+     }
+    else{
+	msg = "";
+     document.getElementById("placementreq").innerHTML="";
+     document.getElementById("placementreq").style.color="red";
+	}
+
+	//Special Characters
+	if ((placementlng>0) && (txtvalidate.test(placement)== false))
+	{
+	msg = "* Alphanumeric only";
+     document.getElementById("placementtxt").innerHTML="* Alphanumeric only";
+     document.getElementById("placementtxt").style.color="red";
+	}
+	else{
+	msg = "";
+     document.getElementById("placementtxt").innerHTML="";
+     document.getElementById("placementtxt").style.color="red";
+	}
+
+	//Placement condition
+	if(placement<=0){
+	   placement="";
+	}
+	else{
+		placement="_"+placement;
+	}
+
+
+//Target
+
+	//Target: Max 7 characters
+	var targetlng = target.length;
+ 	if(targetlng >7)
+     {
+     msg = "* Max. 7 Characters";
+     document.getElementById("targetreq").innerHTML="* Max. 7 Characters";
+     document.getElementById("targetreq").style.color="red";
+     }
+    else{
+	msg = "";
+     document.getElementById("targetreq").innerHTML="";
+     document.getElementById("targetreq").style.color="red";
+	}
+
+	//Special Characters
+	if ((targetlng>0) && (txtvalidate.test(target)== false))
+	{
+	msg = "* Alphanumeric only";
+     document.getElementById("targettxt").innerHTML="* Alphanumeric only";
+     document.getElementById("targettxt").style.color="red";
+	}
+	else{
+	msg = "";
+     document.getElementById("targettxt").innerHTML="";
+     document.getElementById("targettxt").style.color="red";
+	}
+
+	//Target condition
+	if(target<=0){
+	   target="";
+	}
+	else{
+		target="_"+target;
+	}
+
+//Paid
+
+	//Paid condition
+	if(paid.indexOf("select") > -1){
+	   paid="";
+	}
+	else{
+		paid="_"+paid;
+	}
+
+//booked guest ID
+
+	var bgidlng = bgid.length;
+	//Special Characters
+	if ((bgidlng>0) && (txtvalidate.test(bgid)== false))
+	{
+	msg = "* Alphanumeric only";
+     document.getElementById("bgidtxt").innerHTML="* Alphanumeric only";
+     document.getElementById("bgidtxt").style.color="red";
+	}
+	else{
+	msg = "";
+     document.getElementById("bgidtxt").innerHTML="";
+     document.getElementById("bgidtxt").style.color="red";
+	}
+
+	//bgid condition
+	if(bgid>0){
+	   bgid="_"+bgid;
+	}
+	else{
+	bgid="";
+	}
+
+//Results
+var CIDResult=document.CIDform.CIDResult.value;
+	document.CIDform.CIDResult.value+=(url+channel+domain+campaign+dateFormat+creative+placement+target+paid+bgid).toLowerCase()+"\n";
+
+
+     //Result condition
+	if(CIDResult.indexOf("invalid") > -1)
+
+     {
+     msg = "Results contain invalid values, please update.";
+     document.getElementById("CIDResultreq").innerHTML="* Results contain invalid values, please update.";
+     document.getElementById("CIDResultreq").style.color="red";
+     }
+    else{
+	msg = "";
+     document.getElementById("CIDResultreq").innerHTML="";
+     document.getElementById("CIDResultreq").style.color="red";
+	}
+
+
+//total length
+var str=channel+domain+campaign+dateFormat+creative+placement+target+paid+bgid;
+var bytes = str.length;
+document.CIDform.bytes.value=bytes;
+}
+
+
+// Show & Clear Validation Msg 
+function showMsg(id){
+  document.getElementById(id).innerHTML = '*Required';
+}
+
+function clearMsg(id){
+  document.getElementById(id).innerHTML = '';
+}
+
+function validateForm(){
+  if(CIDResult.length > 0) {
+    showMsg('CIDResult');
+  } else {
+    clearMsg('CIDResult');
+  }
+}
+
+function clearResult(){
+document.getElementById("CIDResult").value = "";
+}
+
+//function test(){
+//	var str=document.CIDform.CIDResult.value;
+//	window.open(str,'CIDResult', config='height=500,width=500');
+//}
+</script>
+<body>
+
+<!--Form Start-->
+<form name="CIDform" method="post"><font face="helvetica neue,calibri,arial">
+    <td width="700">
+      <table border=0 align=left cellspacing=3 cellpadding=3 width="00">
+        <th align="center" colspan=6><font color="#000000" size="4">CID Generator<hr></font></th>
+ <tr><td colspan="6"><font size="2">
+RULES:<br>
+&nbsp;&nbsp;<li>URL, Channel, Domain, Campaign & Date are required; the rest are optional fields
+&nbsp;&nbsp;<li>All type-in fields should be no longer than 7 characters
+&nbsp;&nbsp;<li>Creative ID: unique identifiers of digits & lowercase letters
+&nbsp;&nbsp;<li>Target/Type: campaign target or post  type (dark)
+&nbsp;&nbsp;<li>Paid captures whether the campaign has paid support (paid vs. organic)
+&nbsp;&nbsp;<li>Any value should be alphanumeric and should not include spaces & special characters.
+</font><hr></td></tr>
+
+<!--URL-->
+<tr>
+<td colspan="2">
+<font color="#000000" size="2"><b>1. (Required) URLs: </font>
+</td>
+<td colspan="8"><textarea name="url" id="url" cols="30" rows=5 col=30></textarea>
+<span id="urlreq"></span>
+</tr>
+
+<!--Channel-->
+<tr>
+<td colspan="2">
+<font color="#000000" size="2"><b>2. (Required) Channel: </font>
+</td>
+<td colspan="2"><select name="channel">
+	<option value="select">-Select-</option>
+	<option value="af">Affiliate</option>
+	<option value="cmp">Campanion Banners</option>
+	<option value="dco">DCO</option>
+	<option value="dcs">DCS</option>
+	<option value="dgt">Digital (Others)</option>
+	<option value="di">Display</option>
+	<option value="em">Email</option>
+	<option value="hid">High Impact Digital</option>
+	<option value="icp">Internal Campaign</option>
+	<option value="mob">Mobile</option>
+	<option value="vi">Online Video</option>
+	<option value="ps">Paid Search</option>
+	<option value="so">Social Campaigns</option>
+</select>
+<span id="channelreq"></span>
+</td>
+</tr>
+
+<!--Domain-->
+<tr>
+<td colspan="2">
+<font color="#000000" size="2"><b>3. (Required) Domain: </font>
+</td>
+<td colspan="2"><select name="domain">
+	<option value="select">-Select-</option>
+	<option value="prf">140Proof</option>
+	<option value="acn">Accuen</option>
+	<option value="awg">Awaywego</option>
+	<option value="bng">Bing</option>
+	<option value="blg">Blog</option>
+	<option value="ccl">Carnival.com</option>
+	<option value="cwb">Cowboys</option>
+	<option value="crc">Cruise Critic</option>
+	<option value="cnl">Cruiseanality</option>
+	<option value="dco">DCO</option>
+	<option value="dwb">Drawbridge</option>
+	<option value="buz">Ebuzzing</option>
+	<option value="xpd">Expedia</option>
+	<option value="fb">Facebook</option>
+	<option value="ggl">Google</option>
+	<option value="box">Google Lightbox</option>
+	<option value="gum">Gum Gum</option>
+	<option value="het">Heat</option>
+	<option value="hlu">Hulu</option>
+	<option value="inst">Instagram</option>
+	<option value="ccl">Internal campaign</option>
+	<option value="krg">Kargo</option>
+	<option value="mxp">Maxpoint</option>
+	<option value="ntv">Nativo</option>
+	<option value="nbc">NBC</option>
+	<option value="nbce">NBC/E!</option>
+	<option value="brv">NBCU/Bravo</option>
+	<option value="omg">OMG</option>
+	<option value="opr">Opera</option>
+	<option value="oub">Outbrain</option>
+	<option value="pin">Pinterest</option>
+	<option value="snt">Saints</option>
+	<option value="sjr">Sojern</option>
+	<option value="spo">Spotify</option>
+	<option value="stm">Stumbleupon</option>
+	<option value="oni">The Onion</option>
+	<option value="zoo">Travelzoo</option>
+	<option value="twt">Twitter</option>
+	<option value="und">Undertone</option>
+	<option value="vvo">Vevo</option>
+	<option value="vv1">Vevo 1</option>
+	<option value="vv2">Vevo 2</option>
+	<option value="eln">WB // Ellen</option>
+	<option value="xbx">Xbox</option>
+	<option value="yho">Yahoo</option>
+	<option value="yt">Youtube</option>
+</select>
+<span id="domainreq"></span><br>
+</td>
+</tr>
+
+
+<!--Campaign Name-->
+<tr>
+<td colspan="2">
+<font color="#000000" size="2"><b>4. (Required) Campaign:</font>
+</td>
+<td colspan="5"><textarea name="campaign" cols="30" rows=1 col=30 wrap=soft></textarea>
+<span id="campaignreq"></span>
+<span id="campaigncnt"></span>
+<span id="campaigntxt"></span>
+</td>
+</tr>
+
+<!--Date-->
+<tr>
+<td colspan="2">
+<font color="#000000" size="2"><b>5. (Required) Date: </font>
+</td>
+<td colspan="2"><input type="date" name="date">
+<span id="datereq"></span>
+</td>
+</tr>
+
+
+<!--creative-->
+<tr>
+<td colspan="2">
+<font color="#000000" size="2">6. (Optional) Creative: </font>
+</td>
+<td colspan="2"><textarea name="creative" cols="30" rows=1 col=30 wrap=soft></textarea>
+<br><span id="creativereq"></span>
+<span id="creativetxt"></span>
+</td>
+</tr>
+
+
+<!--placement/CTA-->
+<tr>
+<td colspan="2">
+<font color="#000000" size="2">7. (Optional) Placement/CTA: </font>
+</td>
+<td colspan="2"><textarea name="placement" cols="30" rows=1 col=30 wrap=soft></textarea>
+<br><span id="placementreq"></span>
+<span id="placementtxt"></span>
+</td>
+</tr>
+
+<!--target/type-->
+<tr>
+<td colspan="2">
+<font color="#000000" size="2">8. (Optional) Target/Type: </font>
+</td>
+<td colspan="2"><textarea name="target" cols="30" rows=1 col=30 wrap=soft></textarea>
+<br><span id="targetreq"></span>
+<span id="targettxt"></span>
+</td>
+</tr>
+
+
+<!--paid-->
+
+<tr>
+<td colspan="2">
+<font color="#000000" size="2">9. (Optional) Paid Campaign: </font>
+</td>
+<td colspan="2"><select name="paid">
+	<option value="select">-Select-</option>
+	<option value="paid">Paid</option>
+</select>
+</td>
+</tr>
+
+
+<!--booked guest message ID-->
+<tr>
+<td colspan="2">
+<font color="#000000" size="2">10. (Optional) Booked Guest Msg ID: </font>
+</td>
+<td colspan="2"><textarea name="bgid" cols="30" rows=1 col=30 wrap=soft></textarea>
+<br><span id="bgidtxt"></span>
+</td>
+</tr>
+
+<!--Submit & Reset Button-->
+ <tr>
+ <td align="center" colspan="6"><br>
+ 	<input name="button" type="button" onClick="clearResult();onSubmit();" value="Generate">
+	<input name=btnClear type=button value="Clear All" onClick="document.location.reload()">
+ </td>
+</tr>
+</table>
+
+<!--Result-->
+<table border=0 align=center cellspacing=3 cellpadding=3 width="600">
+<!--CalByte-->
+
+
+<tr>
+<td colspan="4"><font color="orange" size="4"><br><b> Results: </b></font><br>
+</tr>
+
+<tr><td><font color="#000000" size="2"><b>Total length of your CID string is </b></font>
+<textarea name="bytes" cols="2" rows=1 col=5></textarea>
+<font color="#000000" size="2"><b> bytes.  </b>
+<font color="#000000" size="2"><b>&nbsp;CID longer than 255 bytes will be truncated.</b></td>
+</tr>
+<tr><td>
+<textarea name="CIDResult" id="CIDResult" cols="80" rows=30 col=50 wrap=soft></textarea><br>
+<span id="CIDResultreq"></span>
+</td>
+</tr>
+</table>
+
+
+
+
+<!--<font color="#000000" size="2">* Make sure the URL contains "http:// or "https://. If you see your promotion page loading correctly, that means CID is not breaking the link.</font>
+<td align="left"><input name="button" type="button" onClick="JavaScript:test()" value="Test The Result"></td>
+</td>
+</tr>-->
+
+
+
+</form>
+</body>
+</html>
